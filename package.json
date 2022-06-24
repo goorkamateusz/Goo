@@ -1,0 +1,24 @@
+{
+    "name": "com.goorkamateusz.goo",
+    "version": "0.0.0",
+    "displayName": "Goo",
+    "description": "Experimental, educative package of programing patterns, tools and common reusable components.",
+    "unity": "2020.3",
+    "unityRelease": "13f1",
+    "documentationUrl": "https://goorkamateusz.github.io/Playground/",
+    "changelogUrl": "",
+    "licensesUrl": "",
+    "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "2.0.0"
+    },
+    "keywords": [
+        "goorkamateusz",
+        "Patterns",
+        "Code"
+    ],
+    "author": {
+        "name": "Mateusz Górka",
+        "email": "goorkamateusz@gmail.com",
+        "url": "https://goorkamateusz.github.io"
+    }
+}
