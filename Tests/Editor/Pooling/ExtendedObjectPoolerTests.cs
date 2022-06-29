@@ -12,7 +12,7 @@ namespace Goo.Tests.Editor.Pooling
 
     internal class CustomPooled : MonoBehaviour, IPooled
     {
-        public bool IsDisabled { get; set; }
+        public bool Recycled { get; set; }
     }
 
     public class ExtendedObjectPoolerTests : PoolingObjectsTests<ExtendedTestablePooler>
@@ -34,7 +34,7 @@ namespace Goo.Tests.Editor.Pooling
             var obj = _pooler.GetObject();
             IPooled pooled = obj.GetComponent<IPooled>();
             Assert.IsNotNull(pooled);
-            Assert.IsFalse(pooled.IsDisabled);
+            Assert.IsFalse(pooled.Recycled);
             Assert.IsTrue(obj.activeSelf);
         }
 
@@ -45,7 +45,7 @@ namespace Goo.Tests.Editor.Pooling
             var obj = _pooler.GetObject();
             IPooled pooled = obj.GetComponent<IPooled>();
             Assert.IsNotNull(pooled);
-            Assert.IsFalse(pooled.IsDisabled);
+            Assert.IsFalse(pooled.Recycled);
             Assert.IsTrue(obj.activeSelf);
         }
 
@@ -56,7 +56,7 @@ namespace Goo.Tests.Editor.Pooling
             var obj = _pooler.GetObject();
             IPooled pooled = obj.GetComponent<IPooled>();
             Assert.IsNotNull(pooled);
-            Assert.IsFalse(pooled.IsDisabled);
+            Assert.IsFalse(pooled.Recycled);
             Assert.IsTrue(obj.activeSelf);
         }
 
@@ -71,12 +71,12 @@ namespace Goo.Tests.Editor.Pooling
             IPooled pooled2 = second.GetComponent<IPooled>();
             Assert.AreSame(first, second);
             Assert.AreSame(pooled1, pooled2);
-            Assert.IsFalse(pooled2.IsDisabled);
+            Assert.IsFalse(pooled2.Recycled);
         }
 
         protected override void FreeObject(GameObject item)
         {
-            item.GetComponent<IPooled>().IsDisabled = true;
+            item.GetComponent<IPooled>().Recycled = true;
         }
     }
 }

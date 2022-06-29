@@ -5,13 +5,13 @@ namespace Goo.Tools.Pooling
 {
     public interface IPooled
     {
-        bool IsDisabled { get; set; }
+        bool Recycled { get; set; }
         GameObject gameObject { get; }
     }
 
     public class Pooled : MonoBehaviour, IPooled
     {
-        public bool IsDisabled { get; set; }
+        public bool Recycled { get; set; }
     }
 
     public class ExtendedObjectPooler : ObjectPoolerBase, IObjectPooler
@@ -24,7 +24,7 @@ namespace Goo.Tools.Pooling
 
             foreach (var o in _list)
             {
-                if (o.IsDisabled)
+                if (o.Recycled)
                 {
                     obj = o;
                     break;

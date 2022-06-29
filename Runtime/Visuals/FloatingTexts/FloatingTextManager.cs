@@ -13,7 +13,7 @@ namespace Goo.Visuals.FloatingTexts
         private struct TextPoolerType
         {
             [field: SerializeField] public TLabel Label { get; private set; }
-            [field: SerializeField] public ObjectPooler Pooler { get; private set; }
+            [field: SerializeField] public GameObject Prefab { get; private set; }
         }
 
         [SerializeField] private TextPoolerType[] _poolerTypes;
@@ -50,8 +50,8 @@ namespace Goo.Visuals.FloatingTexts
         {
             if (_links.TryGetValue(e.Label, out int index))
             {
-                var pooler = _poolerTypes[index].Pooler;
-                var floatingText = pooler.GetObject<FloatingText>();
+                var pooler = _poolerTypes[index].Prefab;
+                var floatingText = AutoObjectPooler.GetObject<IFloatingText>(pooler);
                 floatingText.SetText(e.Message, e.Position, _camera.rotation);
                 return;
             }

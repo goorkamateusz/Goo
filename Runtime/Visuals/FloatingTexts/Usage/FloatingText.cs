@@ -1,9 +1,9 @@
 using UnityEngine;
 using TMPro;
 
-namespace Goo.Visuals.FloatingTexts
+namespace Goo.Visuals.FloatingTexts.Usage
 {
-    public class FloatingText : MonoBehaviour
+    public class FloatingText : MonoBehaviour, IFloatingText
     {
         [SerializeField] private TMP_Text _text;
         [Header("Config")]

@@ -4,13 +4,13 @@ namespace Goo.Tools.Pooling
     {
         public static void DeactivateAndFree(this IPooled obj)
         {
-            obj.IsDisabled = true;
+            obj.Recycled = true;
             obj.gameObject.SetActive(false);
         }
 
         public static void ActivateAndLock(this IPooled obj)
         {
-            obj.IsDisabled = false;
+            obj.Recycled = false;
             obj.gameObject.SetActive(true);
         }
     }

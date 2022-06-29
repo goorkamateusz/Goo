@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ namespace Goo.Tools.Pooling
 {
     public class ObjectPooler : ObjectPoolerBase, IObjectPooler
     {
-        private readonly List<GameObject> _list = new List<GameObject>();
+        private readonly PoolerList _list = new PoolerList();
 
         public virtual GameObject GetObject()
         {
