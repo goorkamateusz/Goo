@@ -7,26 +7,19 @@ using Goo.Tools.UnityHelpers;
 
 namespace Goo.Visuals.FloatingTexts
 {
-    public struct FloatingTextEvent : IEvent<FloatingTextEvent>
-    {
-        public Vector3 Position { get; set; }
-        public string Message { get; set; }
-        public string Type { get; set; }
-    }
-
-    public class FloatingTextManager : MonoBehaviour, IEventListener<FloatingTextEvent>
+    public class FloatingTextManager<TLabel> : MonoBehaviour, IEventListener<IFloatingTextEvent<TLabel>>
     {
         [Serializable]
         private struct TextPoolerType
         {
-            [field: SerializeField] public string Type { get; private set; }
+            [field: SerializeField] public TLabel Label { get; private set; }
             [field: SerializeField] public ObjectPooler Pooler { get; private set; }
         }
 
         [SerializeField] private TextPoolerType[] _poolerTypes;
         [SerializeField] private Transform _camera;
 
-        private readonly Dictionary<string, int> _links = new Dictionary<string, int>();
+        private readonly Dictionary<TLabel, int> _links = new Dictionary<TLabel, int>();
 
         protected virtual void Awake()
         {
@@ -49,13 +42,13 @@ namespace Goo.Visuals.FloatingTexts
             _links.Clear();
             for (int i = 0; i < _poolerTypes.Length; i++)
             {
-                _links[_poolerTypes[i].Type] = i;
+                _links[_poolerTypes[i].Label] = i;
             }
         }
 
-        public void OnEvent(FloatingTextEvent e)
+        public void OnEvent(IFloatingTextEvent<TLabel> e)
         {
-            if (_links.TryGetValue(e.Type, out int index))
+            if (_links.TryGetValue(e.Label, out int index))
             {
                 var pooler = _poolerTypes[index].Pooler;
                 var floatingText = pooler.GetObject<FloatingText>();
@@ -63,7 +56,7 @@ namespace Goo.Visuals.FloatingTexts
                 return;
             }
 
-            this.LogError($"FloatingTextManager doesn't contain {e.Type} pooler");
+            this.LogError($"FloatingTextManager doesn't contain {e.Label} pooler");
         }
     }
 }
