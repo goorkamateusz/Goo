@@ -9,7 +9,7 @@ namespace Goo.Tools.Pooling
     {
         private class PoolingSet
         {
-            public readonly PoolerList List = new PoolerList();
+            public readonly ListOfGameObject List = new ListOfGameObject();
             public readonly Transform Parent;
 
             public PoolingSet()
@@ -41,7 +41,7 @@ namespace Goo.Tools.Pooling
                 data[prefab] = set;
             }
 
-            GameObject obj = set.List.GetFree();
+            GameObject obj = set.List.GetRecycled();
 
             if (obj == null)
             {

@@ -1,18 +1,15 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Goo.Tools.Pooling
 {
-    [Serializable]
-    internal class PoolerList : List<GameObject>
+    internal abstract class ListOfRecyclable<T> : List<T> where T : class
     {
-        public GameObject GetFree()
+        public T GetRecycled()
         {
-            GameObject obj = null;
+            T obj = null;
             foreach (var o in this)
             {
-                if (!o.activeSelf)
+                if (IsRecycled(o))
                 {
                     obj = o;
                     break;
@@ -20,5 +17,7 @@ namespace Goo.Tools.Pooling
             }
             return obj;
         }
+
+        protected abstract bool IsRecycled(T o);
     }
 }

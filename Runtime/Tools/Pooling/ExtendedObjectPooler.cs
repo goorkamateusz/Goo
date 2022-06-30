@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Goo.Tools.Pooling
@@ -9,6 +8,7 @@ namespace Goo.Tools.Pooling
         GameObject gameObject { get; }
     }
 
+
     public class Pooled : MonoBehaviour, IPooled
     {
         public bool Recycled { get; set; }
@@ -16,21 +16,19 @@ namespace Goo.Tools.Pooling
 
     public class ExtendedObjectPooler : ObjectPoolerBase, IObjectPooler
     {
-        private readonly List<IPooled> _list = new List<IPooled>();
+        private class ListOfIPooled : ListOfRecyclable<IPooled>
+        {
+            protected override bool IsRecycled(IPooled pooled)
+            {
+                return pooled.Recycled;
+            }
+        }
+
+        private readonly ListOfIPooled _list = new ListOfIPooled();
 
         public GameObject GetObject()
         {
-            IPooled obj = null;
-
-            foreach (var o in _list)
-            {
-                if (o.Recycled)
-                {
-                    obj = o;
-                    break;
-                }
-            }
-
+            IPooled obj = _list.GetRecycled();
             if (obj == null)
             {
                 obj = CreateNewObject();

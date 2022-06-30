@@ -1,12 +1,18 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Goo.Tools.Pooling
 {
+    internal class ListOfGameObject : ListOfRecyclable<GameObject>
+    {
+        protected override bool IsRecycled(GameObject gameObject)
+        {
+            return !gameObject.activeSelf;
+        }
+    }
+
     public class ObjectPooler : ObjectPoolerBase, IObjectPooler
     {
-        private readonly PoolerList _list = new PoolerList();
+        private readonly ListOfGameObject _list = new ListOfGameObject();
 
         public virtual GameObject GetObject()
         {
