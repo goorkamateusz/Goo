@@ -10,29 +10,28 @@ namespace Goo.Tools.Pooling
         }
     }
 
-    public class ObjectPooler : ObjectPoolerBase, IObjectPooler
+    /// Component-based object pooler running on GameObjects class.
+    /// Running `GameObject.SetActive(false)` frees the object.
+    public class SimpleObjectPooler : ObjectPoolerBase, IObjectPooler
     {
         private readonly ListOfGameObject _list = new ListOfGameObject();
 
         public virtual GameObject GetObject()
         {
-            GameObject obj = null;
-            foreach (var o in _list)
-            {
-                if (!o.activeSelf)
-                {
-                    obj = o;
-                    break;
-                }
-            }
-
+            GameObject obj = _list.GetRecycled();
             if (obj == null)
             {
-                obj = Instantiate(_prefab, _parent);
-                _list.Add(obj);
+                obj = CreateNewObject();
             }
 
             obj.SetActive(true);
+            return obj;
+        }
+
+        private GameObject CreateNewObject()
+        {
+            GameObject obj = Instantiate(_prefab, _parent);
+            _list.Add(obj);
             return obj;
         }
 

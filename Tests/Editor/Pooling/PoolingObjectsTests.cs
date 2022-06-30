@@ -11,7 +11,7 @@ namespace Goo.Tests.Editor.Pooling
         new bool IsTestFinished { set; get; }
     }
 
-    public class TestablePooler : ObjectPooler, IMyMonoBehaviourTest
+    public class TestablePooler : SimpleObjectPooler, IMyMonoBehaviourTest
     {
         public bool IsTestFinished { set; get; }
     }

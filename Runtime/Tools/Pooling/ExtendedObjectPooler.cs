@@ -14,6 +14,8 @@ namespace Goo.Tools.Pooling
         public bool Recycled { get; set; }
     }
 
+    /// Component-based object pooler running on IPooled interface.
+    /// Running `IPooled.Recycled = false` or `IPooled.DeactivateAndFree()` frees the object.
     public class ExtendedObjectPooler : ObjectPoolerBase, IObjectPooler
     {
         private class ListOfIPooled : ListOfRecyclable<IPooled>
