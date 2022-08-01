@@ -6,7 +6,7 @@ namespace Goo.Tools.EventSystem
 {
     internal class EventManager : Singleton<EventManager>
     {
-        private Dictionary<Type, List<IEventListener>> subscribers = new Dictionary<Type, List<IEventListener>>();
+        private readonly Dictionary<Type, List<IEventListener>> subscribers = new Dictionary<Type, List<IEventListener>>();
 
         internal void Subscribe<T>(IEventListener<T> listener)
         {
