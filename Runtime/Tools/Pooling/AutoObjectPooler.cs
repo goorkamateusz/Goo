@@ -25,9 +25,9 @@ namespace Goo.Tools.Pooling
 
         private readonly Dictionary<GameObject, PoolingSet> _lists = new Dictionary<GameObject, PoolingSet>();
 
-        public static T GetObject<T>(GameObject prefab)
+        public static T GetObject<T>(GameObject prefab, bool dontCreatePoolerParent = false)
         {
-            return GetObject(prefab).GetComponent<T>();
+            return GetObject(prefab, dontCreatePoolerParent).GetComponent<T>();
         }
 
         public static GameObject GetObject(GameObject prefab, bool dontCreatePoolerParent = false)
