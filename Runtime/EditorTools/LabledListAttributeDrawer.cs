@@ -5,13 +5,13 @@ using UnityEngine;
 namespace Goo.EditorTools
 {
 #if UNITY_EDITOR
-    [CustomPropertyDrawer(typeof(LabledListAttribute))]
+    [CustomPropertyDrawer(typeof(LabeledList))]
     public class LabledListAttributeDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
         {
             int pos = int.Parse(property.propertyPath.Split('[', ']')[1]);
-            LabledListAttribute attr = (LabledListAttribute)attribute;
+            LabeledList attr = (LabeledList)attribute;
 
             if (Enum.IsDefined(attr.Type, pos))
             {

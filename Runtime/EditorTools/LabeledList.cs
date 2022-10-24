@@ -2,11 +2,11 @@ using System;
 
 namespace Goo.EditorTools
 {
-    public class LabledListAttribute : UnityEngine.PropertyAttribute
+    public class LabeledList : UnityEngine.PropertyAttribute
     {
         public Type Type { get; }
 
-        public LabledListAttribute(Type type)
+        public LabeledList(Type type)
         {
             Type = type;
         }
